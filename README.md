@@ -1,0 +1,1 @@
+translate chat app utilizing openai api refactored to use netlify server side env vars

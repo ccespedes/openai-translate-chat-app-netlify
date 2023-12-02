@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./assets/parrot.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translation Chat App</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <img class="logo-image" src="assets/parrot.png" />
+      <div>
+        <h1 class="header-text">PollyGlot</h1>
+        <p class="header-desc">Perfect Translation Every Time</p>
+      </div>
+    </header>
+
+    <main>
+
+      <form id="language">
+        <div class="input-container mb">
+          <input id="translate-text" type="text" autofocus="autofocus" autocomplete="off"></input>
+          <button><img class="svg" src="./assets/send-btn.svg" /></button>
+        </div>
+
+        <div class="language-group mb">
+          <label>
+            <input type="radio" id="french" name="language" checked />
+            <img src="./assets/fr-flag.png" alt="French Flag">
+          </label>
+
+          <label>
+            <input type="radio" id="spanish" name="language" />
+            <img src="./assets/sp-flag.png" alt="Spanish Flag">
+          </label>
+
+          <label>
+            <input type="radio" id="japanese" name="language" />
+            <img src="./assets/jpn-flag.png" alt="Japanese Flag">
+          </label>
+
+        </div>
+      </form>
+
+
+      <div class="message-container">
+
+        <div id="loading"></div>
+
+        <div id="setup">
+          <div class="message message-bot">Select the language you want me to translate into, type your text and send!
+          </div>
+
+          <div id="chat">
+            <!-- <div class="message message-user">How are you tonight?</div>
+            <div class="message message-bot">Select the language you me to translate into, type
+              your
+              text and send!</div>
+            <div class="message message-user">How are you tonight?</div> -->
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
