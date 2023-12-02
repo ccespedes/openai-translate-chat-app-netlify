@@ -1,5 +1,4 @@
 import './style.css'
-// import OpenAI from 'openai'
 
 const loading = document.getElementById('loading')
 const messageContainer = document.querySelector('.message-container')
@@ -9,11 +8,6 @@ const chat = document.getElementById('chat')
 
 loading.style.display = 'none'
 
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-//   dangerouslyAllowBrowser: true,
-// })
-
 const messages = [
   {
     role: 'system',
@@ -22,8 +16,12 @@ const messages = [
   },
 ]
 
-async function pingAi(text, language) {
+async function fetchReply(text, language) {
   const url = 'https://translate-chat.netlify.app/.netlify/functions/fetchAI'
+  messages.push({
+    role: 'user',
+    content: `Translate the following: ${text} into ${language}`,
+  })
 
   const response = await fetch(url, {
     method: 'POST',
@@ -35,10 +33,6 @@ async function pingAi(text, language) {
   const data = await response.json()
   console.log(data)
 
-  // messages.push({
-  //   role: 'user',
-  //   content: `Translate the following: ${text} into ${language}`,
-  // })
   // try {
   //   console.log('try: ', messages)
   //   const response = await openai.chat.completions.create({
@@ -71,7 +65,7 @@ document.getElementById('language').addEventListener('submit', (e) => {
   selectedLanguage =
     selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)
   console.log(selectedLanguage, textToTranslate)
-  pingAi(textToTranslate, selectedLanguage)
+  fetchReply(textToTranslate, selectedLanguage)
 
   const newMessageBubble = document.createElement('div')
   newMessageBubble.classList.add('message', 'message-user')
