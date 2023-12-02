@@ -1,6 +1,5 @@
 import './style.css'
 import OpenAI from 'openai'
-import { process } from './env'
 
 const loading = document.getElementById('loading')
 const messageContainer = document.querySelector('.message-container')
