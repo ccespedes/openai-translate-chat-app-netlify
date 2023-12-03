@@ -17,40 +17,34 @@ const messages = [
 ]
 
 async function fetchReply(text, language) {
-  const url = 'https://translate-chat.netlify.app/.netlify/functions/fetchAI'
   messages.push({
     role: 'user',
     content: `Translate the following: ${text} into ${language}`,
   })
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-    },
-    body: JSON.stringify(messages),
-  })
-  const data = await response.json()
-  console.log(data)
+  try {
+    const url = 'https://translate-chat.netlify.app/.netlify/functions/fetchAI'
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+      body: JSON.stringify(messages),
+    })
+    const data = await response.json()
+    const translation = data.reply.choices[0].message.content
 
-  // try {
-  //   console.log('try: ', messages)
-  //   const response = await openai.chat.completions.create({
-  //     model: 'gpt-3.5-turbo',
-  //     messages: messages,
-  //   })
-  //   const translation = response.choices[0].message.content
-  //   messages.push({
-  //     role: 'system',
-  //     content: translation,
-  //   })
-  //   console.log('response is: ', translation)
-
-  //   renderTypewriterText(translation)
-  // } catch (error) {
-  //   console.log(error)
-  //   showError(error)
-  // }
+    messages.push({
+      role: 'system',
+      content: translation,
+    })
+    console.log('response is: ', translation)
+    console.log('messages: ', messages)
+    renderTypewriterText(translation)
+  } catch (error) {
+    console.log(error)
+    showError(error)
+  }
 }
 
 document.getElementById('language').addEventListener('submit', (e) => {
